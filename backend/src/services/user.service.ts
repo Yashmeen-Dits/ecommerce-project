@@ -6,7 +6,7 @@ import { generateToken } from "../utils/generateToken";
 
 const userRepository = AppDataSource.getRepository(User);
 
-interface RegisterUserInput
+ export interface RegisterUserInput
 {
     username:string;
     email:string;
@@ -14,7 +14,7 @@ interface RegisterUserInput
     role?:role;
 }
 
-interface LoginUserInput{
+ export interface LoginUserInput{
     email:string;
     password: string;
 }
@@ -26,13 +26,13 @@ export const createUser = async (
     const existingUser = await  userRepository.findOne({
             where:
             {
-                email: userData.email
+              email: userData.email
             },
 
         });
         if(existingUser)
         {
-            throw new Error("User with this email already exits");
+         throw new Error("User with this email already exits");
         }
 
         const hashedPassword = await hashPassword(userData.password);
@@ -82,5 +82,22 @@ export const loginUser=async(
                 user,
                 token
             };
+};
+
+
+export const getProfile=async (
+  userId:number,
+):Promise<User>=>
+{
+  const user = await userRepository.findOne(
+    {
+        where:{id:userId},
+    }
+  );
+  if(!user)
+  {
+    throw new Error("User not Found");
+  }
+  return user;
 };
 

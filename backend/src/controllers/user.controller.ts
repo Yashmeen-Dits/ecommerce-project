@@ -1,11 +1,15 @@
 import { Request, Response } from "express";
-import { createUser } from "../services/user.service";
+import { createUser, RegisterUserInput } from "../services/user.service";
 import { loginUser } from "../services/user.service";
+import { AuthenticatedRequest } from "../Interfaces/auth.interface";
+import { IProfileResponse } from "../Interfaces/user.interface";
+import { LoginUserInput } from "../services/user.service";
 
 export const registerUser = async (
-  req: Request,
+  req: Request
   res: Response
-): Promise<void> => {
+): Promise<  > => 
+  {
   try {
     const user = await createUser(req.body);
 
@@ -48,3 +52,23 @@ export const login =async(
 
     }
 };
+
+export const getProfile=async(
+  req:AuthenticatedRequest,
+  res:Response<IProfileResponse>
+):Promise <Response<IProfileResponse>> =>
+{
+  try{
+    const 
+  }
+  catch(error)
+  {
+
+  }
+};
+
+
+ 
+
+
+
