@@ -1,16 +1,25 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 function Navbar() {
+  const [menuOpen,setMenuOpen]=useState(false);
   return (
    <nav className="navbar">
     <h2 className="logo">ShopEase</h2>
 
-      <div className="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">Categories</a>
-        <a href="#">Contact</a>
+      <div className={`nav-links ${menuOpen? "active" : ""}`}>
+       <Link to="/">Home</Link>
+       <Link to="/products">Products</Link>
+       <a href="#categories">Category</a>
+      <Link to ="/cart">Cart</Link>
+      <Link to="/deals">Deals</Link>
       </div>
+
+
+      <button className="hamburger" onClick={()=>setMenuOpen(!menuOpen)}>
+         ☰
+      </button>
 
       <button className="nav-btn">
         Login

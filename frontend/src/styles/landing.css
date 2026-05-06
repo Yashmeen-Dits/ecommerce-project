@@ -5,43 +5,78 @@
   box-sizing: border-box;
 }
 
-
 body {
   font-family: Arial, sans-serif;
   background: #f8fafc;
 }
 
-.navbar
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 0;
-}
-
 .logo
 {
-  font-size: 1.8rem;
+  font-size:23px;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #1d4ed8;
+  color: #0242f1;
 }
+
+
+.navbar
+{
+     position: sticky;
+     top:0;
+     z-index:1000;
+     background:rgba(225, 239, 246, 0.75);
+     border:2px solid #a6caf8;
+     border-radius:24px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 18px 30px;
+}
+
 
 .nav-links
 {
+
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding:18px 0;
+  backdrop-filter: blur(10px);
   gap: 32px;
+  
 }
 
 .nav-links a {
   text-decoration: none;
   color: #334155;
-  font-weight: 500;
+  font-weight: 600;
+  padding: 12px 20px;
+  background:rgba(198, 212, 241, 0.7);
+  border:1px solid #bfdbfe;
+  border-radius: 14px;
   transition: color 0.25s ease;
+  
 }
 
 .nav-links a:hover {
+  font-size:1rem;
   color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.nav-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nav-btn:hover{
+  transform: translateY(-2px); 
 }
 
 .home-page { 
@@ -50,7 +85,7 @@ body {
   padding: 30px 50px;
   background: linear-gradient(
     135deg,
-    #dbeafe,
+    #749ed6,
     #f8fafc
   );
 }
@@ -68,7 +103,33 @@ body {
 
 .banner-left,.banner-right
 {
-  flex: 1;
+  flex: 1 ;
+}
+
+.banner-right img
+{
+  width:100%;
+  height:520px;
+  object-fit:cover;
+  border-radius:28px;
+  box-shadow:0 25px 50px rgba(37, 99, 235, 0.14)
+}
+
+@media (max-width:1100px)
+{
+  .home-banner
+  {
+    flex-direction: column;
+  }
+  
+  .banner-left,.banner-right{
+    width:100%;
+  }
+
+  .banner-right img {
+    height:auto;
+  }
+
 }
 
 
@@ -106,15 +167,95 @@ body {
   gap:19px;
 }
 
-.nav-btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 12px;
+.back-btn {
+  display: inline-block;
+  margin-bottom: 24px;
+  padding: 12px 20px;
+
   background: #2563eb;
   color: white;
+
+  text-decoration: none;
+  border-radius: 12px;
+
   font-weight: 600;
-  cursor: pointer;
   transition: all 0.25s ease;
+}
+
+.back-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+
+.product-page {
+  min-height: 100vh;
+  padding: 40px 50px;
+
+  background: linear-gradient(
+    135deg,
+    #dbeafe,
+    #f8fafc
+  );
+}
+
+.product-page h1 {
+  font-size: 2.8rem;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.product-page p {
+  font-size: 1.1rem;
+  color: #475569;
+  margin-bottom: 30px;
+}
+
+
+.cart-page {
+  min-height: 100vh;
+  padding: 40px 50px;
+
+  background: linear-gradient(
+    135deg,
+    #dbeafe,
+    #f8fafc
+  );
+}
+
+.cart-page h1 {
+  font-size: 2.8rem;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.cart-page p {
+  font-size: 1.1rem;
+  color: #475569;
+  margin-bottom: 30px;
+}
+
+
+.deals-page {
+  min-height: 100vh;
+  padding: 40px 50px;
+
+  background: linear-gradient(
+    135deg,
+    #dbeafe,
+    #f8fafc
+  );
+}
+
+.deals-page h1 {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.deals-page p {
+  font-size: 1.1rem;
+  color: #475569;
 }
 
 .shop-btn,
@@ -164,12 +305,7 @@ body {
   transform: translateY(-2px);
 }
 
-.banner-right img {
-  width: 100%;
-  border-radius: 28px;
-  box-shadow:
-    0 25px 50px rgba(37,99,235,0.14);
-}
+
 
 .footer {
   margin-top: auto;
@@ -217,12 +353,14 @@ body {
 }
 
 .category-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display:grid;
+   grid-template-columns:
+    repeat(3,1fr);
   gap: 24px;
 }
 
 .category-card {
+  flex: 1 1 300px;
   background: rgba(255,255,255,0.85);
   padding: 18px;
   border-radius: 24px;
@@ -253,5 +391,54 @@ body {
 
 .category-card:hover {
   transform: translateY(-8px);
+}
+
+.hamburger
+{
+  display:none;
+  font-size: 2rem;
+  background: none;
+  border:none;
+  cursor: pointer;
+  color:#1d4ed8;
+}
+
+@media (max-width: 1100px)
+{
+  
+
+  .navbar{
+    position: relative;
+   
+  }
+  .hamburger
+  {
+    display:block;
+    
+  }
+
+  .nav-links
+  {
+    position: absolute;
+    top:90px;
+    right:20px;
+    flex-direction:column;
+    background:white;
+    width: 220px;
+    padding:20px;
+    border-radius:18px;
+    box-shadow: 
+    0 15px 35px rgba(0,0,0,0.1) ;
+    display:none;
+  }
+
+  .nav-links.active
+  {
+    display:flex;
+  }
+  .nav-btn{
+    display: none;
+  }
+
 }
 
