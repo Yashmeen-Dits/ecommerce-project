@@ -1,24 +1,29 @@
 import { Request, Response } from "express";
 import { createUser } from "../services/user.service";
+import {IRegisterResponse, RegisterUserInput } from "../Interfaces/auth.interface";
 import { loginUser } from "../services/user.service";
+import { AuthenticatedRequest } from "../Interfaces/auth.interface";
+import { IProfileResponse } from "../Interfaces/auth.interface";
+import { AUTH_MESSAGES } from "../constants/messages";
 
 export const registerUser = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+  req:Request<{},{},RegisterUserInput>,
+  res: Response<IRegisterResponse>
+): Promise< Response<IRegisterResponse>> => 
+  {
   try {
     const user = await createUser(req.body);
 
-    res.status(201).json({
-      message: "User registered successfully",
+     return res.status(201).json({
+      message:AUTH_MESSAGES.REGISTER_SUCCESS,
       data: user,
     });
   } catch (error) {
-    res.status(400).json({
+     return res.status(400).json({
       message:
         error instanceof Error
           ? error.message
-          : "Registration failed",
+          : AUTH_MESSAGES.REGISTER_FAILED,
     });
   }
 };
@@ -48,3 +53,23 @@ export const login =async(
 
     }
 };
+
+export const getProfile=async(
+  req:AuthenticatedRequest,
+  res:Response<IProfileResponse>
+):Promise <Response<IProfileResponse>> =>
+{
+  try{
+    const 
+  }
+  catch(error)
+  {
+
+  }
+};
+
+
+ 
+
+
+

@@ -1,4 +1,5 @@
 import React from 'react'
+import SaleBanner from "../assets/sale-banner.png";
 
 function Home() {
   return (
@@ -31,9 +32,8 @@ function Home() {
       </div>
 
       <div className="banner-right">
-        <img
-          src="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
-          alt="Product Banner"
+        <img 
+          src={SaleBanner} alt="50% off Sale"
         />
       </div>
     </section>

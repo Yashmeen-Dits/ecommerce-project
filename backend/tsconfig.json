@@ -11,8 +11,8 @@
     "target": "ES2022",
     "types": ["node"],
     // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
+     "lib": ["esnext"],
+  
     // and npm install -D @types/node
 
     // Other Outputs
@@ -39,11 +39,11 @@
 
     // Recommended Options
     "strict": true,
-    //"jsx": "react-jsx",
+    "jsx": "react-jsx",
    // "verbatimModuleSyntax": true,
-   //"isolatedModules": true,
-   // "noUncheckedSideEffectImports": true,
-  // "moduleDetection": "force",
+   "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+   //"moduleDetection": "force",
     "skipLibCheck": true
   },
   "include": ["src"]

@@ -13,7 +13,7 @@ import { Cart } from "./Cart";
 import { Order } from "./Order";
 
 
-export enum role{
+export enum role {
   ADMIN="admin",
   CUSTOMER="customer",
   SELLER="seller"

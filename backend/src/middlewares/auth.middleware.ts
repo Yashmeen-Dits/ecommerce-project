@@ -22,7 +22,16 @@ export const authenticate = (
 
   const token = authHeader.split(" ")[1];
 
+
+
+  if (!token) {
+    res.status(401).json({
+      message: "Token missing",
+    });
+    return;
+  }
   const JWT_SECRET = process.env["JWT_SECRET"];
+  
 
   if (!JWT_SECRET) {
     res.status(500).json({

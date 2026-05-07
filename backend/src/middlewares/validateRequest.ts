@@ -9,7 +9,7 @@ export const validateRequest=
     {
         res.status(400).json(
             {
-                message: error.details[0]?.message,
+              message: error.details[0]?.message,
             }
         );
         return;
