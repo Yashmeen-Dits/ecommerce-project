@@ -30,6 +30,9 @@ export class User {
   @Column("varchar",{length:20})
   lastName!: string;
 
+  @Column("varchar")
+  username!:string;
+
   @Column("varchar",{ unique: true })
   email!: string;
 

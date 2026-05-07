@@ -5,11 +5,15 @@ import {role} from "../entities/User";
 export interface IUserResponse
 {
   id:number,
-  username:string,
+  username?:string,
   email:string;
   role:role;
 }
 
+export interface JwtPayload {
+  userId: number;
+  role: string;
+}
  export interface RegisterUserInput
 {
     username:string;
@@ -17,9 +21,10 @@ export interface IUserResponse
     password:string;
     role?:role;
 }
+
 export interface IRegisterResponse
 {
-  message:string;
+  message?:string;
   data?:
   {
     id:number,
@@ -28,18 +33,20 @@ export interface IRegisterResponse
   };
 }
 
-
 export interface LoginUserInput{
     email:string;
-    password: string;
-
+    password:string;
 }
 
 
 export interface ILoginResponse
 {
-  user:IUserResponse;
-  token:string;
+  message?:string;
+  data?:
+  {
+    username?:string;
+    token:string;
+  }
 }
 
 export interface IUserProfile
@@ -49,8 +56,12 @@ export interface IUserProfile
 }
 
 export interface IProfileResponse {
-  message: string;
-  data: IUserProfile;
+  message?: string;
+  data?: IUserProfile;
+}
+export interface IAuthResponse
+{
+   message:string;
 }
 
 export interface AuthenticatedRequest extends Request {
@@ -58,4 +69,5 @@ export interface AuthenticatedRequest extends Request {
     userId: number;
     role: string;
   };
+
 }

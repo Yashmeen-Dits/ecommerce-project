@@ -1,32 +1,28 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { AUTH_MESSAGES } from "../constants/messages";
+import { AuthenticatedRequest,IAuthResponse ,JwtPayload} from "../Interfaces/auth.interface";
 
-interface JwtPayload {
-  userId: number;
-  role: string;
-}
 
 export const authenticate = (
-  req: Request,
-  res: Response,
+  req: AuthenticatedRequest,
+  res: Response<IAuthResponse>,
   next: NextFunction
 ): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     res.status(401).json({
-      message: "Authorization token missing",
+      message: AUTH_MESSAGES.AUTH_TOKEN_MISSING,
     });
     return;
   }
 
   const token = authHeader.split(" ")[1];
 
-
-
   if (!token) {
     res.status(401).json({
-      message: "Token missing",
+      message: AUTH_MESSAGES.TOKEN_MISSING,
     });
     return;
   }
@@ -35,7 +31,7 @@ export const authenticate = (
 
   if (!JWT_SECRET) {
     res.status(500).json({
-      message: "JWT secret not configured",
+      message: AUTH_MESSAGES.JWT_SECRET_MISSING,
     });
     return;
   }
@@ -53,7 +49,7 @@ export const authenticate = (
     next();
   } catch {
     res.status(401).json({
-      message: "Invalid or expired token",
+      message: AUTH_MESSAGES.INVALID_TOKEN,
     });
   }
 };

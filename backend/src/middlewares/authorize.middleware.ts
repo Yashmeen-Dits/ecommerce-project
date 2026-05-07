@@ -1,4 +1,5 @@
 import { Request,Response,NextFunction } from "express";
+import { AUTH_MESSAGES } from "../constants/messages";
 
 
 export const authorize =(...allowedRoles:string[])=>
@@ -17,7 +18,7 @@ export const authorize =(...allowedRoles:string[])=>
         {
             res.status(401).json(
                 {
-                    message:"Unauthorized",
+                 message:AUTH_MESSAGES.UNAUTHORIZED,
                 });
                  return;
         }
@@ -26,11 +27,11 @@ export const authorize =(...allowedRoles:string[])=>
         {
         res.status(403).json(
             {
-                message:"Access Denied",
+                message:AUTH_MESSAGES.ACCESS_DENIED,
 
             }
         );
-        return;
+        return
        }
        
     next();

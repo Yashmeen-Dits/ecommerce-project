@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { createUser } from "../services/user.service";
-import {IRegisterResponse, RegisterUserInput } from "../Interfaces/auth.interface";
+import {ILoginResponse, IRegisterResponse, LoginUserInput, RegisterUserInput } from "../Interfaces/auth.interface";
 import { loginUser } from "../services/user.service";
 import { AuthenticatedRequest } from "../Interfaces/auth.interface";
 import { IProfileResponse } from "../Interfaces/auth.interface";
 import { AUTH_MESSAGES } from "../constants/messages";
+import { getProfile } from "../services/user.service"; 
 
 export const registerUser = async (
   req:Request<{},{},RegisterUserInput>,
@@ -29,41 +30,61 @@ export const registerUser = async (
 };
 
 
+
 export const login =async(
-    req:Request,
-    res:Response
-):Promise <void> =>
+    req:Request<{},{},LoginUserInput>,
+    res:Response<ILoginResponse>
+):Promise <Response<ILoginResponse>> =>
 {
     try {
         const result = await loginUser(req.body);
-
-        res.status(200).json(
-            {
-                message:"Login successful",
-                data: result,
-
+         return res.status(200).json({
+                message:AUTH_MESSAGES.LOGIN_SUCCESS,
+                data: 
+                {
+                  username:result.user.username,
+                  token:result.token,
+                },
             });
     }
     catch(error)
     {
-        res.status(400).json(
-            {
-                message: error instanceof Error?error.message:"Login failed",
+       return res.status(400).json({
+            message: error instanceof Error?error.message:AUTH_MESSAGES.LOGIN_FAILED,
             });
-
     }
+
 };
 
-export const getProfile=async(
+
+export const getProfileService=async(
   req:AuthenticatedRequest,
-  res:Response<IProfileResponse>
+  res:Response<IProfileResponse>,
 ):Promise <Response<IProfileResponse>> =>
 {
   try{
-    const 
+    const user=await getProfile(req.user!.userId)
+    return res.status(200).json(
+      {
+        message:AUTH_MESSAGES.PROFILE_FETCHED,
+        data:
+        {
+          userId:user.id,
+          role:user.role ,
+        }
+      }
+    );
   }
   catch(error)
   {
+
+    return res.status(404).json(
+      {
+        message:
+        error instanceof Error
+        ? error.message:AUTH_MESSAGES.PROFILE_FETCH_FAILED,
+      }
+    );
 
   }
 };

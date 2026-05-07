@@ -10,7 +10,10 @@ export const AUTH_MESSAGES =
   ACCESS_DENIED: "Access denied",
   UNAUTHORIZED: "Unauthorized",
   TOKEN_MISSING: "Token is missing",
+   AUTH_TOKEN_MISSING: "Authorization token missing",
   INVALID_TOKEN: "Invalid token",
+
+    JWT_SECRET_MISSING: "JWT secret not configured",
 
   PROFILE_FETCHED:"Profile accessed",
   PROFILE_FETCH_FAILED: "Failed to fetch profile",
