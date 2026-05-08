@@ -4,19 +4,14 @@ import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import "./styles/landing.css";
 import DealsPage from "./pages/DealsPage";
+import AppRoutes from "./routes/AppRoutes";
+
 
 function App() {
-  return(
-    <Routes>
-      <Route path="/" element={<HomePage/>}/>
-       <Route path="/products" element={<ProductPage />} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/deals" element={<DealsPage/>}/>
-    </Routes>
 
+  return <AppRoutes />;
 
-
-  ) ;
 }
 
 export default App;
+

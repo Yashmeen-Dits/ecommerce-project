@@ -3,7 +3,8 @@ import Footer from "../components/Footer";
 import Home from "../components/Home";
 import SaleBanner from "../assets/sale-banner.png";
 import Categories from "../components/Categories";
-
+import "../styles/landing.css";
+import  "../styles/register.css"
 
 
 

@@ -1,5 +1,7 @@
 import React from 'react'
 import SaleBanner from "../assets/sale-banner.png";
+import "../styles/landing.css";
+
 
 function Home() {
   return (
@@ -41,4 +43,4 @@ function Home() {
   );
 }
 
-export default Home
+export default Home;

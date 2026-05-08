@@ -19,7 +19,7 @@ body {
 }
 
 
-.navbar
+.home-page.navbar
 {
      position: sticky;
      top:0;
@@ -115,24 +115,20 @@ body {
   box-shadow:0 25px 50px rgba(37, 99, 235, 0.14)
 }
 
+
 @media (max-width:1100px)
 {
   .home-banner
   {
     flex-direction: column;
   }
-  
   .banner-left,.banner-right{
     width:100%;
   }
-
   .banner-right img {
     height:auto;
   }
-
 }
-
-
 
 .banner-tag
 {
