@@ -6,11 +6,9 @@ import "./styles/landing.css";
 import DealsPage from "./pages/DealsPage";
 import AppRoutes from "./routes/AppRoutes";
 
-
-function App() {
-
+function App() 
+{
   return <AppRoutes />;
-
 }
 
 export default App;

@@ -2,10 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import "../styles/landing.css";
+import {useNavigate} from "react-router-dom";
 
 
 function Navbar() {
   const [menuOpen,setMenuOpen]=useState(false);
+
+    const navigate = useNavigate();
+
+    const handleLogout=()=>
+    {
+      localStorage.removeItem("token");
+      localStorage.removeItem("currentUser");
+
+    alert("Logout Successful");
+    navigate("/login");
+
+    };
   return (
    <nav className="navbar">
     <h2 className="logo">ShopEase</h2>
@@ -16,6 +29,7 @@ function Navbar() {
        <a href="#categories">Category</a>
       <Link to ="/cart">Cart</Link>
       <Link to="/deals">Deals</Link>
+      <Link to="/profile">Profile</Link>
       </div>
 
 
@@ -23,9 +37,12 @@ function Navbar() {
          ☰
       </button>
 
-      <button className="nav-btn">
-        Login
-      </button>
+
+     <button className='nav-btn'
+         onClick={handleLogout}>
+               Logout
+             </button>
+
     </nav>
 
   );

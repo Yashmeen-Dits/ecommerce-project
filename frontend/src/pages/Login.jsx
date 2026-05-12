@@ -1,167 +1,184 @@
 import React from 'react';
-import {useState} from "react";
-import {Link,useNavigate} from "react-router-dom" ;
+import { useState ,useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+
 import api from '../api/axios';
+
 import "../styles/login.css";
-import {validateLogin}from "../validation/validate";
 
-const Login=()=>
+import { validateLogin }
+from "../validation/validate";
+
+const Login = () =>
 {
-    const navigate=useNavigate();
-    const[formData,setFormData]=useState(
+    const navigate = useNavigate();
+
+    useEffect(()=>
+    {
+        const token=localStorage.getItem("token");
+
+        if(token)
         {
-            email:"",
-            password:""
+            navigate("/home");
         }
-    );
-    const [errors,setErrors] =useState({});
+    },[])
 
+    const [formData, setFormData] =
+    useState(
+    {
+        username:"",
+        password:""
+    });
 
-    const handleChange=(e)=>
+    const [errors, setErrors] =
+    useState({});
+
+    const handleChange = (e) =>
     {
         setFormData(
-            {
-                ...formData,
-            [e.target.name]: e.target.value,
-      });
+        {
+            ...formData,
+
+            [e.target.name]:
+            e.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) =>
+    {
+        e.preventDefault();
+        const validationErrors =
+            validateLogin(formData);
+        setErrors(validationErrors);
+        if(
+            Object.keys(validationErrors)
+            .length > 0
+        )
+        {
+            return;
+        }
+        try
+        {
+            const loginResponse =
+                await api.post(
+                    "/auth/login",
+                    {
+                        username:
+                            formData.username,
+                        password:
+                            formData.password,
+                    }
+                );
+
+            console.log(
+                loginResponse.data
+            );
+            const token =
+                loginResponse.data
+                .accessToken;
+            localStorage.setItem(
+                "token",
+                token
+            );
+            const userResponse = await api.get( "/user/me",
+                    {
+                        headers:
+                        {
+                            Authorization:
+                            `Bearer ${token}`,
+                        },
+                    }
+                );
+
+            console.log(
+                userResponse.data
+            );
+
+            localStorage.setItem(
+                "currentUser",
+                JSON.stringify(
+                    userResponse.data
+                )
+            );
+
+            alert("Login Successful");
+            navigate("/home");
+        }
+        catch(error)
+        {
+            console.log(error);
+            alert(
+                "Invalid Credentials"
+            );
+        }
     };
 
 
-const handleSubmit = async(e)=>
-{
-    e.preventDefault();
-    const validationErrors =
-        validateLogin(formData);
 
-    setErrors(validationErrors);
-    if(
-        Object.keys(validationErrors)
-        .length > 0
-    )
-    {
-        return;
-    }
-    const savedUsers =
-        JSON.parse(
-            localStorage.getItem("users")
-        ) || [];
-    const validUser =
-        savedUsers.find(
-            (user)=>
-                user.email ===
-                formData.email &&
-                user.password ===
-                formData.password
-        );
-
-
-
-    if(validUser)
-    {
-        alert("Login Successful");
-
-        navigate("/home");
-    }
-
-    else
-    {
-        alert("Invalid Credentials");
-    }
-};
-
- return (
+    return (
 
         <div className="login-container">
-
             <form
                 className="login-form"
-
                 onSubmit={handleSubmit}
             >
-
                 <h1>Login</h1>
-
-
-
-
                 <input
-                    type="email"
-
-                    name="email"
-
-                    placeholder="Enter Email"
-
-                    value={formData.email}
-
+                    type="text"
+                    name="username"
+                    placeholder=
+                    "Enter Username"
+                    value={formData.username}
                     onChange={handleChange}
-
                     className={`login-input ${
-                        errors.email
+                        errors.username
                         ? "input-error"
                         : ""
                     }`}
                 />
 
                 {
-                    errors.email &&
-
+                    errors.username &&
                     <p className="error-text">
-                        {errors.email}
+                        {errors.username}
                     </p>
                 }
 
+
+
                 <input
                     type="password"
-
                     name="password"
-
-                    placeholder="Enter Password"
-
+                    placeholder=
+                    "Enter Password"
                     value={formData.password}
-
                     onChange={handleChange}
-
                     className={`login-input ${
                         errors.password
                         ? "input-error"
                         : ""
                     }`}
-
                 />
 
                 {
-                    errors.password &&
-
-                    <p className="error-text">
-                        {errors.password}
+                    errors.password && <p className="error-text">
+                     {errors.password}
                     </p>
                 }
 
-
-
                 <button type="submit">
-
                     Login
-
                 </button>
-
-
-
                 <p>
-
                     Don't have an account?
-
                     <Link to="/">
                         Register
                     </Link>
-
                 </p>
-
             </form>
-
         </div>
     );
-    
 };
 
 export default Login;

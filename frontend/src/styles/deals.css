@@ -1,0 +1,23 @@
+.deals-page{
+    min-height:100vh;
+    background:red;
+    color:white;
+    padding-top:150px;
+}
+
+.back-btn{
+    background:black;
+    color:white;
+    padding:10px;
+    display:inline-block;
+}
+
+.deals-page h1{
+    font-size:50px;
+    color:white;
+}
+
+.deals-page p{
+    font-size:30px;
+    color:yellow;
+}
